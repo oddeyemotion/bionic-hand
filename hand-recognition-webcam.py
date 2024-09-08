@@ -13,13 +13,13 @@ handsModule = mediapipe.solutions.hands
 
 
 #Use CV2 Functionality to create a Video stream and add some values
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture("/dev/video0")
 
 my_list=['rock', 'paper', 'scissors']
 
 
-h=480
-w=640
+h=768
+w=1024
 tip=[8,12,16,20]
 mid=[6,10,14,18] 
 fingers=[]
@@ -55,10 +55,10 @@ while (showLive):
 		while True:   
 			ret, frame = cap.read()        
 			#ret, frame = cap.read()
-			frame1 = cv2.resize(frame, (640, 480))
+			frame1 = cv2.resize(frame, (1024, 768))
 			list=[] #initializing position list before calling landmark
 			results = hands.process(cv2.cvtColor(frame1, cv2.COLOR_BGR2RGB))
-                
+            
                 #Incase the system sees multiple hands this if statment deals with that and produces another hand overlay
 			if results.multi_hand_landmarks != None:
 				for handLandmarks in results.multi_hand_landmarks:
@@ -97,102 +97,99 @@ while (showLive):
 						else:
 							fingers.append(0)
                                                                       
-			x=fingers 
-			print(x)
+				x=fingers 
+				print(x)
 			#c=Counter(x)
 			#up=c[1]
 			#down=c[0]
-			'''
-                         #rock
-			if x[0] == 0 and x[1]==0 and x[2]==0 and x[3]==0: #and computer == 'rock':  #rock vs rock
-			#print('TIE')
-			#print('Round Results:')
-				print('You played: rock')
-			#print('Computer Played:' +computer)
-			#counter=counter+1
+			
+			
+            	#rock
+				if x[0] == 0 and x[1]==0 and x[2]==0 and x[3]==0: #and computer == 'rock':  #rock vs rock
+				#print('TIE')
+				#print('Round Results:')
+					print('You played: rock')
+				#print('Computer Played:' +computer)
+				#counter=counter+1
 
 
-			if x[0] == 0 and x[1]==0 and x[2]==0 and x[3]==0 and computer == 'paper':  #rock vs paper
-			#print('LOSS')
-			#print(':(')
-                              print('Round Results:')
-                              print('You played: rock')
-                              print('Computer Played:' +computer)
-                              counter=counter+1                         
+			#if x[0] == 0 and x[1]==0 and x[2]==0 and x[3]==0 #and computer == 'paper':  #rock vs paper
+				#print('LOSS')
+				#print(':(')
+				#print('Round Results:')
+				#print('You played: rock')
+				#print('Computer Played:' +computer)
+				#counter=counter+1                         
                               
-                    if x[0] == 0 and x[1]==0 and x[2]==0 and x[3]==0 and computer == 'scissors':  #rock vs scissors
-                              print('WIN!')
-                              print('Round Results:')
-                              print('You played: rock')
-                              print('Computer Played:' +computer)
-                              counter=counter+1
-                              
-
-                         #scissors
-			if x[0] == 1 and x[1]==1 and x[2]==0 and x[3]==0: #and computer == 'rock':  scissors vs rock
-			#print('LOSS')
-			#print(':(')
-			#print('Round Results:')
-				print('You played: scissors')
-			#print('Computer Played:' +computer)
-			#counter=counter+1                         
+			#if x[0] == 0 and x[1]==0 and x[2]==0 and x[3]==0 and computer == 'scissors':  #rock vs scissors
+				#print('WIN!')
+				#print('Round Results:')
+				#print('You played: rock')
+				#print('Computer Played:' +computer)
+				#counter=counter+1
                               
 
-                    if x[0] == 1 and x[1]==1 and x[2]==0 and x[3]==0 and computer == 'paper':  #scissors vs paper
-                              print('WIN!')
-                              print('Round Results:')
-                              print('You played: scissors')
-                              print('Computer Played:' +computer)
-                              counter=counter+1                         
-                              
-                              
-
-                    if x[0] == 1 and x[1]==1 and x[2]==0 and x[3]==0 and computer == 'scissors':  #scissors vs scissors
-                              print('TIE')
-                              print('Round Results:')
-                              print('You played: scissors')
-                              print('Computer Played:' +computer)
-                              counter=counter+1                                 
-
-                         #paper
-			if x[0] == 1 and x[1]==1 and x[2]==1 and x[3]==1: #and computer == 'rock':  paper vs rock
-			#print('WIN!')
-			#print('Round Results:')
-				print('You played: paper')
-			#print('Computer Played:' +computer)
-			#counter=counter+1                         
+				#scissors
+				if x[0] == 1 and x[1]==1 and x[2]==0 and x[3]==0: #and computer == 'rock':  scissors vs rock
+				#print('LOSS')
+				#print(':(')
+				#print('Round Results:')
+					print('You played: scissors')
+				#print('Computer Played:' +computer)
+				#counter=counter+1                         
                               
 
-                    if x[0] == 1 and x[1]==1 and x[2]==1 and x[3]==1 and computer == 'paper':  #paper vs paper
-                              print('TIE')
-                              print('Round Results:')
-                              print('You played: paper')
-                              print('Computer Played:' +computer)
-                              counter=counter+1                         
+			#if x[0] == 1 and x[1]==1 and x[2]==0 and x[3]==0 and computer == 'paper':  #scissors vs paper
+				#print('WIN!')
+				#print('Round Results:')
+				#print('You played: scissors')
+				#print('Computer Played:' +computer)
+				#counter=counter+1                         
+                              
+			#if x[0] == 1 and x[1]==1 and x[2]==0 and x[3]==0 and computer == 'scissors':  #scissors vs scissors
+				#print('TIE')
+				#print('Round Results:')
+				#print('You played: scissors')
+				#print('Computer Played:' +computer)
+				#counter=counter+1                                 
+
+				#paper
+				if x[0] == 1 and x[1]==1 and x[2]==1 and x[3]==1: #and computer == 'rock':  paper vs rock
+				#print('WIN!')
+				#print('Round Results:')
+					print('You played: paper')
+				#print('Computer Played:' +computer)
+				#counter=counter+1                                                   
+
+			#if x[0] == 1 and x[1]==1 and x[2]==1 and x[3]==1 and computer == 'paper':  #paper vs paper
+				#print('TIE')
+				#print('Round Results:')
+				#print('You played: paper')
+				#print('Computer Played:' +computer)
+				#counter=counter+1                         
                          
-
-                    if x[0] == 1 and x[1]==1 and x[2]==1 and x[3]==1 and computer == 'scissors':  #paper vs scissors
-                              print('LOSS')
-                              print(':(')
-                              print('Round Results:')
-                              print('You played: paper')
-                              print('Computer Played:' +computer)
-                              counter=counter+1                         
+			#if x[0] == 1 and x[1]==1 and x[2]==1 and x[3]==1 and computer == 'scissors':  #paper vs scissors
+				#print('LOSS')
+				#print(':(')
+				#print('Round Results:')
+				#print('You played: paper')
+				#print('Computer Played:' +computer)
+				#counter=counter+1                         
                               
-                    if counter>=5:
-                    	counter = 0;
-                    	sleep(10)
-                    	break 
-			'''       
-                #Below shows the current frame to the desktop 
-	#cv2.imshow("Frame", frame)
+			#if counter>=5:
+				#counter = 0;
+				#sleep(10)
+				#break 
+			       
+			#cv2.imshow("Frame", frame)
 			cv2.imshow("Frame", frame1)
+			
 			'''
-	key = cv2.waitKey(1) & 0xFF
+			key = cv2.waitKey(1) & 0xFF
                 
                 #Below states that if the |q| is press on the keyboard it will stop the system
-	if key == ord("q"):
-		break
+			if key == ord("q"):
+				break
 			'''
                    
 			if cv2.waitKey(30)>=0:
